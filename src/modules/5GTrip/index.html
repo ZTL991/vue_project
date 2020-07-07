@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="referrer" content="always">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+  <meta id="metaPhoneNo" NAME="WT.mobile" CONTENT="0">
+  <meta name="renderer" content="webkit"/>
+  <meta name="force-rendering" content="webkit"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <title>5G旅游</title>
+</head>
+<body>
+<div id="app"></div>
+<!--分享-->
+<script>
+  var ZTJSToObjectC = {}
+
+  function isAHApp() {
+    return window.navigator.userAgent.indexOf('anhuiAPP') > -1
+  }
+
+  function getDeviceType() {
+    var u = navigator.userAgent
+    var myOS = 'android'
+    if (u.indexOf('iPhone') > -1 || u.indexOf('iPad') > -1) myOS = 'ios'
+    return myOS
+  }
+
+  function getIosStyle() {
+    var myStyle = 0
+    if (window.webkit && isAHApp()) {
+      var iosVersion = navigator.userAgent.match(/clientVersion=([^;]+);/)[1]
+      if (iosVersion >= '6.2.3') myStyle = 1
+    }
+    return myStyle
+  }
+
+  try {
+    if (isAHApp()) {
+      var deviceType = getDeviceType();
+      var linkStr = window.location.protocol + '//' + window.location.host + '/eip?eip_serv_id=app.h5_5GTrip'
+      var imgSms = "https://ah.10086.cn/upfile/h5/images/5GTrip/5GTrip_share_icon.jpg";
+      var contentSms = "1000+全球热门景点，720°全景实拍，语音导游，在家躺着能让你身临其境！";
+      var contentFriend = "1000+全球热门景点，720°全景实拍，语音导游，在家躺着能让你身临其境！";
+      var title = "家里躺着也能看风景，还不用买票！"
+      if (deviceType == "android") {
+        var paramJson = "[{\"friendContent\":\"" + contentFriend + "\",\"friendImg\":\"" + imgSms + "\",\"friendLink\":\"" + linkStr + "\"},{\"weiContent\":\"" + contentSms + "\",\"weiImg\":\"" + imgSms + "\",\"weiLink\":\"" + linkStr + "\"},{\"sinaContent\":\"" + contentSms + "\",\"sinaImg\":\"" + imgSms + "\",\"sinaLink\":\"" + linkStr + "\"},{\"shareTitle\":\"" + title + "\",\"shareUrl\":\"" + linkStr + "\",\"msgContent\":\"" + contentSms + "\"},{\"qqShareTitle\":\"" + contentSms + "\",\"qqImg\":\"" + imgSms + "\",\"qqLink\":\"" + linkStr + "\"},{\"qzoneShareTitle\":\"" + contentSms + "\",\"qzoneImg\":\"" + imgSms + "\",\"qzoneLink\":\"" + linkStr + "\"},{\"qrCodeIsShow\":\"" + "1" + "\",\"qrCodeDescript\":\"" + contentSms + "\",\"qrCodeTitle\":\"" + title + "\",\"qrCodeBottomImageUrl\":\"" + imgSms + "\",\"qrCodeLink\":\"" + linkStr + "\"}]";
+        window.handler.setShareMessage(paramJson);
+      } else {
+        if (getIosStyle() == 1) {
+          var shareMessage = "[{\"friendContent\":\"" + contentSms + "\",\"friendImg\":\"" + imgSms + "\",\"friendLink\":\"" + linkStr + "\"},{\"weiContent\":\"" + contentSms + "\",\"weiImg\":\"" + imgSms + "\",\"weiLink\":\"" + linkStr + "\"},{\"sinaContent\":\"" + contentSms + "\",\"sinaImg\":\"" + imgSms + "\",\"sinaLink\":\"" + linkStr + "\"},{\"shareTitle\":\"" + title + "\",\"shareUrl\":\"" + linkStr + "\",\"msgContent\":\"" + contentSms + "\"},{\"qqShareTitle\":\"" + contentSms + "\",\"qqImg\":\"" + imgSms + "\",\"qqLink\":\"" + linkStr + "\"},{\"qzoneShareTitle\":\"" + contentSms + "\",\"qzoneImg\":\"" + imgSms + "\",\"qzoneLink\":\"" + linkStr + "\"},{\"qrCodeIsShow\":\"" + "1" + "\",\"qrCodeDescript\":\"" + contentSms + "\",\"qrCodeTitle\":\"" + title + "\",\"qrCodeBottomImageUrl\":\"" + imgSms + "\",\"qrCodeLink\":\"" + linkStr + "\"}]";
+          window.webkit.messageHandlers.shareContent.postMessage({
+            "shareMessage": shareMessage//分享内容 必传
+          });
+        } else {
+          var paramJson = "[{\"friendContent\":\"" + contentSms + "\",\"friendImg\":\"" + imgSms + "\",\"friendLink\":\"" + linkStr + "\"},{\"weiContent\":\"" + contentSms + "\",\"weiImg\":\"" + imgSms + "\",\"weiLink\":\"" + linkStr + "\"},{\"sinaContent\":\"" + contentSms + "\",\"sinaImg\":\"" + imgSms + "\",\"sinaLink\":\"" + linkStr + "\"},{\"shareTitle\":\"" + title + "\",\"shareUrl\":\"" + linkStr + "\",\"msgContent\":\"" + contentSms + "\"},{\"qqShareTitle\":\"" + contentSms + "\",\"qqImg\":\"" + imgSms + "\",\"qqLink\":\"" + linkStr + "\"},{\"qzoneShareTitle\":\"" + contentSms + "\",\"qzoneImg\":\"" + imgSms + "\",\"qzoneLink\":\"" + linkStr + "\"},{\"qrCodeIsShow\":\"" + "1" + "\",\"qrCodeDescript\":\"" + contentSms + "\",\"qrCodeTitle\":\"" + title + "\",\"qrCodeBottomImageUrl\":\"" + imgSms + "\",\"qrCodeLink\":\"" + linkStr + "\"}]";
+          ZTJSToObjectC.setShareMessage(paramJson);
+        }
+      }
+    }
+  } catch (e) {}
+</script>
+<script src="//ah.10086.cn/upfile/h5/js/common/ah_sdc_stcp_load.js"></script>
+</body>
+</html>
